@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Personalize gift card at Flaviar</title>
+
+    <link rel="stylesheet" href="res/css/site.css?v=1.0" />
+  </head>
+
+  <body>
+    <header>
+      <a href="#" class="logo"><img src="assets/logotype.svg"/></a>
+      <nav class="float-right">
+        <a href="#">About</a>
+        <a href="#">Log In</a>
+      </nav>
+    </header>
+
+    <section class="container steps text-center">
+      <h1>
+        Start building<br />
+        their gift
+      </h1>
+      <div class="subtitle">Your Gift, Their Journey</div>
+
+      <div class="row">
+        <div class="col-sm text-center">
+          <div class="step">
+            <img src="assets/picto_01.png" width="120" height="120" />
+            <div class="title">Personalize their card</div>
+            <div class="divider"></div>
+            <p>
+              As soon as they receive their gift card, they will be able to
+              claim their membership by following the instructions
+            </p>
+          </div>
+        </div>
+        <div class="col-sm text-center">
+          <div class="step">
+            <img src="assets/picto_02.png" width="120" height="120" />
+            <div class="title">Deliver the gift</div>
+            <div class="divider"></div>
+            <p>
+              As soon as they receive their gift card, they will be able to
+              claim their membership by following the instructions
+            </p>
+          </div>
+        </div>
+        <div class="col-sm text-center">
+          <div class="step">
+            <img src="assets/picto_03.png" width="120" height="120" />
+            <div class="title">Recap the rewards</div>
+            <div class="divider"></div>
+            <p>
+              May 2018 be the year of exploration and tasting for you and yours!
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="title-image"></section>
+
+    <section class="main">
+      <main class="text-center">
+        <h2>Personalize Their Gift Card</h2>
+        <div class="divider h2-divider"></div>
+        <form id="gift-form" v-on:submit.prevent="onSubmit">
+          <div class="form-part">
+            <div class="form-part-title">
+              <b>How long</b> would you like them to enjoy the membership?
+            </div>
+            <div class="form-radio">
+              <div
+                v-on:click="values.duration = 'half'"
+                v-bind:class="{ selected: values.duration == 'half' }"
+                class="form-option d-flex justify-content-center"
+              >
+                <div class="align-self-center justify-self-center">
+                  <div class="label">HALF A YEAR</div>
+                  <div class="price">€108</div>
+                </div>
+              </div>
+              <div
+                v-on:click="values.duration = 'full'"
+                v-bind:class="{ selected: values.duration == 'full' }"
+                class="form-option d-flex justify-content-center"
+              >
+                <div class="align-self-center justify-self-center">
+                  <div class="label">1 YEAR</div>
+                  <div class="price">€216</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-part">
+            <div class="form-part-title">
+              <b>What kind</b> of card would you like?
+            </div>
+            <div class="form-radio">
+              <div
+                v-on:click="values.cardType = 'digital'"
+                v-bind:class="{ selected: values.cardType == 'digital' }"
+                class="form-option d-flex justify-content-center"
+              >
+                <div class="align-self-center justify-self-center">
+                  <div class="label">DIGITAL<br />GIFT CARD</div>
+                </div>
+              </div>
+              <div
+                v-on:click="values.cardType = 'physical'"
+                v-bind:class="{ selected: values.cardType == 'physical' }"
+                class="form-option d-flex justify-content-center"
+              >
+                <div class="align-self-center justify-self-center">
+                  <div class="label">
+                    HANDWRITTEN PHYSICAL GIFT CARD
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-part">
+            <div class="form-part-title">
+              <b>Where</b> would you like the card to be sent?
+            </div>
+            <div class="form-radio">
+              <div
+                v-on:click="values.recipient = 'me'"
+                v-bind:class="{ selected: values.recipient == 'me' }"
+                class="form-option d-flex justify-content-center"
+              >
+                <div class="align-self-center justify-self-center">
+                  <div class="label">SEND TO ME</div>
+                </div>
+              </div>
+              <div
+                v-on:click="values.recipient = 'them'"
+                v-bind:class="{ selected: values.recipient == 'them' }"
+                class="form-option d-flex justify-content-center"
+              >
+                <div class="align-self-center justify-self-center">
+                  <div class="label">
+                    SEND TO THEM
+                  </div>
+                  <div class="disclaimer">
+                    (you must provide their email and home address)
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-disclaimer">
+            At the moment we ship to all European Union (EU) countries and the
+            United States, with the exception of the following states: Alabama,
+            Alaska, Arkansas, Delaware, Hawaii, Kentucky, Massachusetts, North
+            Dakota, Oklahoma, Pennsylvania, South Dakota, Texas and Utah.
+            Unfortunately, we also cannot ship to Canada, PO Boxes and APO
+            addresses.
+          </div>
+          <div class="divider form-part-divider"></div>
+
+          <!-- Your details -->
+          <div class="form-part">
+            <div class="form-part-title">
+              Enter <b>your</b> personal details:
+            </div>
+            <div class="form-fields">
+              <input
+                v-model="form.customer_name.value"
+                type="text"
+                placeholder="First and Last Name"
+              />
+              <input
+                v-model="form.customer_email.value"
+                v-if="values.recipient == 'me'"
+                type="text"
+                placeholder="Email Address"
+              />
+            </div>
+          </div>
+
+          <!-- Their details -->
+          <div v-if="values.recipient == 'them'" class="form-part">
+            <div class="form-part-title">Now enter <b>their details</b>:</div>
+            <div class="form-fields">
+              <input
+                v-model="form.recipient_email.value"
+                type="text"
+                placeholder="Recipient’s Email Address"
+              />
+              <div v-if="values.cardType == 'physical'">
+                <input
+                  v-model="values.recipient_name"
+                  type="text"
+                  placeholder="First and Last Name"
+                />
+                <input
+                  v-model="form.recipient_address.value"
+                  type="text"
+                  placeholder="Address"
+                />
+                <input
+                  v-model="form.recipient_city.value"
+                  type="text"
+                  placeholder="City"
+                />
+                <div class="row">
+                  <div class="col">
+                    <select
+                      v-model="form.recipient_state.value"
+                      placeholder="State"
+                      v-bind:class="{ empty: form.recipient_state.value == '' }"
+                    >
+                      <option value selected hidden>State</option>
+                      <option>State 1</option>
+                      <option>State 2</option>
+                      <option>State 3</option>
+                    </select>
+                  </div>
+                  <div v-model="form.recipient_zip.value" class="col">
+                    <input type="text" placeholder="Zip code" />
+                  </div>
+                </div>
+                <select
+                  v-model="form.recipient_country.value"
+                  placeholder="Country"
+                  v-bind:class="{ empty: form.recipient_country.value == '' }"
+                >
+                  <option value selected hidden>Country</option>
+                  <option>Country 1</option>
+                  <option>Country 2</option>
+                  <option>Country 3</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <!-- Date of dispatch -->
+          <div v-if="values.recipient == 'them'" class="form-part">
+            <div class="form-part-title">
+              <b>When</b> would you like us to send the gift card:
+            </div>
+            <div class="form-fields">
+              <input
+                v-model="form.dispatch_date.value"
+                type="date"
+                placeholder="Month / Day / Year"
+              />
+            </div>
+          </div>
+
+          <!-- Message -->
+          <div class="form-part">
+            <div class="form-part-title">
+              Add a <b>personal message</b> (optional):
+            </div>
+            <div class="form-fields">
+              <input
+                v-model="form.personal_message_name.value"
+                type="text"
+                placeholder="Recipient’s Name"
+              />
+              <div class="form-personal-message">
+                <textarea
+                  v-model="form.personal_message_content.value"
+                  placeholder="Write something nice..."
+                ></textarea>
+                <a href="#">GENERATE A MESSAGE</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-button">
+            <input
+              type="submit"
+              value="CONTINUE TO CHECKOUT"
+              v-bind:class="{ disabled: !formValid() }"
+            />
+          </div>
+        </form>
+      </main>
+    </section>
+
+    <section class="questions">
+      <h2>Got questions?</h2>
+
+      <div class="row">
+        <div class="col-sm">
+          <a href="#">How much does it cost?</a><br />
+          <a href="#">Can I ship Tasting Boxes directly to the recipient?</a
+          ><br />
+          <a href="#">Can I buy multiple gifts?</a><br />
+          <a href="#">How does it work for the recipient?</a><br />
+          <a href="#">When will the First Box arrive?</a>
+        </div>
+        <div class="col-sm">
+          <a href="#">What happens when the Gift ends?</a><br />
+          <a href="#">What counties do you ship to?</a><br />
+          <a href="#">How many different spirits are included?</a><br />
+          <a href="#">What recipient info is required from me?</a><br />
+          <a href="#">Will you ask the recipients for billing info?</a>
+        </div>
+      </div>
+    </section>
+
+    <div class="brands container text-center">
+      <img src="assets/brands_mobile.png" />
+    </div>
+
+    <footer class="text-center">
+      <div>
+        © 2018 Flaviar | CONTACT US AT: <a href="#">HELLO@FLAVIAR.COM</a>
+      </div>
+      <div>NEW YORK CITY | READ OUR <a href="#">TERMS &amp; CONDITIONS</a></div>
+    </footer>
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <script src="res/js/site.js"></script>
+  </body>
+</html>
