@@ -12,7 +12,7 @@
   </head>
 
   <body>
-    <header>
+    <header class="sticky-top">
       <a href="#" class="logo"><img src="assets/logotype.svg"/></a>
       <nav class="float-right">
         <a href="#">About</a>
@@ -22,16 +22,16 @@
 
     <section class="container steps text-center">
       <h1>
-        Start building<br />
-        their gift
+        Start building their gift
       </h1>
+      <div class="divider d-none d-sm-block"></div>
       <div class="subtitle">Your Gift, Their Journey</div>
 
       <div class="row">
         <div class="col-sm text-center">
           <div class="step">
             <img src="assets/picto_01.png" width="120" height="120" />
-            <div class="title">Personalize their card</div>
+            <div class="title">Personalize the card</div>
             <div class="divider"></div>
             <p>
               As soon as they receive their gift card, they will be able to
@@ -63,22 +63,26 @@
       </div>
     </section>
 
-    <section class="title-image"></section>
+    <section class="title-image">
+      <div class="parallax">
+        <h2 class="d-none d-sm-block">Personalize Their Gift Card</h2>
+      </div>
+    </section>
 
     <section class="main">
       <main class="text-center">
-        <h2>Personalize Their Gift Card</h2>
-        <div class="divider h2-divider"></div>
+        <h2 class="d-sm-none">Personalize Their Gift Card</h2>
+        <div class="divider h2-divider d-sm-none"></div>
         <form id="gift-form" v-on:submit.prevent="onSubmit">
           <div class="form-part">
             <div class="form-part-title">
               <b>How long</b> would you like them to enjoy the membership?
             </div>
-            <div class="form-radio">
+            <div class="form-radio row justify-content-sm-center">
               <div
                 v-on:click="values.duration = 'half'"
                 v-bind:class="{ selected: values.duration == 'half' }"
-                class="form-option d-flex justify-content-center"
+                class="form-option d-flex justify-content-center col-sm"
               >
                 <div class="align-self-center justify-self-center">
                   <div class="label">HALF A YEAR</div>
@@ -88,7 +92,7 @@
               <div
                 v-on:click="values.duration = 'full'"
                 v-bind:class="{ selected: values.duration == 'full' }"
-                class="form-option d-flex justify-content-center"
+                class="form-option d-flex justify-content-center col-sm"
               >
                 <div class="align-self-center justify-self-center">
                   <div class="label">1 YEAR</div>
@@ -99,14 +103,14 @@
           </div>
 
           <div class="form-part">
-            <div class="form-part-title">
+            <div class="form-part-title wider">
               <b>What kind</b> of card would you like?
             </div>
-            <div class="form-radio">
+            <div class="form-radio row justify-content-sm-center">
               <div
                 v-on:click="values.cardType = 'digital'"
                 v-bind:class="{ selected: values.cardType == 'digital' }"
-                class="form-option d-flex justify-content-center"
+                class="form-option d-flex justify-content-center col-sm"
               >
                 <div class="align-self-center justify-self-center">
                   <div class="label">DIGITAL<br />GIFT CARD</div>
@@ -115,7 +119,7 @@
               <div
                 v-on:click="values.cardType = 'physical'"
                 v-bind:class="{ selected: values.cardType == 'physical' }"
-                class="form-option d-flex justify-content-center"
+                class="form-option d-flex justify-content-center col-sm"
               >
                 <div class="align-self-center justify-self-center">
                   <div class="label">
@@ -130,11 +134,11 @@
             <div class="form-part-title">
               <b>Where</b> would you like the card to be sent?
             </div>
-            <div class="form-radio">
+            <div class="form-radio row justify-content-sm-center">
               <div
                 v-on:click="values.recipient = 'me'"
                 v-bind:class="{ selected: values.recipient == 'me' }"
-                class="form-option d-flex justify-content-center"
+                class="form-option d-flex justify-content-center col-sm"
               >
                 <div class="align-self-center justify-self-center">
                   <div class="label">SEND TO ME</div>
@@ -143,7 +147,7 @@
               <div
                 v-on:click="values.recipient = 'them'"
                 v-bind:class="{ selected: values.recipient == 'them' }"
-                class="form-option d-flex justify-content-center"
+                class="form-option d-flex justify-content-center col-sm"
               >
                 <div class="align-self-center justify-self-center">
                   <div class="label">
@@ -175,11 +179,15 @@
             <div class="form-fields">
               <input
                 v-model="form.customer_name.value"
+                v-on:blur="fieldTouched('customer_name')"
+                v-bind:class="{ error: highlightInvalidField('customer_name') }"
                 type="text"
                 placeholder="First and Last Name"
               />
               <input
                 v-model="form.customer_email.value"
+                v-on:blur="fieldTouched('customer_email')"
+                v-bind:class="{ error: highlightInvalidField('customer_email') }"
                 v-if="values.recipient == 'me'"
                 type="text"
                 placeholder="Email Address"
@@ -193,22 +201,30 @@
             <div class="form-fields">
               <input
                 v-model="form.recipient_email.value"
+                v-on:blur="fieldTouched('recipient_email')"
+                v-bind:class="{ error: highlightInvalidField('recipient_email') }"
                 type="text"
                 placeholder="Recipient’s Email Address"
               />
               <div v-if="values.cardType == 'physical'">
                 <input
-                  v-model="values.recipient_name"
+                  v-model="form.recipient_name.value"
+                  v-on:blur="fieldTouched('recipient_name')"
+                  v-bind:class="{ error: highlightInvalidField('recipient_name') }"
                   type="text"
                   placeholder="First and Last Name"
                 />
                 <input
                   v-model="form.recipient_address.value"
+                  v-on:blur="fieldTouched('recipient_address')"
+                  v-bind:class="{ error: highlightInvalidField('recipient_address') }"
                   type="text"
                   placeholder="Address"
                 />
                 <input
                   v-model="form.recipient_city.value"
+                  v-on:blur="fieldTouched('recipient_city')"
+                  v-bind:class="{ error: highlightInvalidField('recipient_city') }"
                   type="text"
                   placeholder="City"
                 />
@@ -216,8 +232,9 @@
                   <div class="col">
                     <select
                       v-model="form.recipient_state.value"
+                      v-on:blur="fieldTouched('recipient_state')"
+                      v-bind:class="{ empty: form.recipient_state.value == '', error: highlightInvalidField('recipient_state') }"
                       placeholder="State"
-                      v-bind:class="{ empty: form.recipient_state.value == '' }"
                     >
                       <option value selected hidden>State</option>
                       <option>State 1</option>
@@ -225,14 +242,21 @@
                       <option>State 3</option>
                     </select>
                   </div>
-                  <div v-model="form.recipient_zip.value" class="col">
-                    <input type="text" placeholder="Zip code" />
+                  <div class="col">
+                    <input
+                      v-model="form.recipient_zip.value"
+                      v-on:blur="fieldTouched('recipient_zip')"
+                      v-bind:class="{ error: highlightInvalidField('recipient_zip') }"
+                      type="text"
+                      placeholder="Zip code"
+                    />
                   </div>
                 </div>
                 <select
                   v-model="form.recipient_country.value"
+                  v-on:blur="fieldTouched('recipient_country')"
                   placeholder="Country"
-                  v-bind:class="{ empty: form.recipient_country.value == '' }"
+                  v-bind:class="{ error: highlightInvalidField('recipient_country'), empty: form.recipient_country.value == '' }"
                 >
                   <option value selected hidden>Country</option>
                   <option>Country 1</option>
@@ -251,7 +275,9 @@
             <div class="form-fields">
               <input
                 v-model="form.dispatch_date.value"
-                type="date"
+                v-on:blur="fieldTouched('dispatch_date')"
+                v-bind:class="{ error: highlightInvalidField('dispatch_date') }"
+                type="text"
                 placeholder="Month / Day / Year"
               />
             </div>
@@ -290,29 +316,33 @@
     </section>
 
     <section class="questions">
-      <h2>Got questions?</h2>
+      <div class="container">
+        <h2>Got questions?</h2>
 
-      <div class="row">
-        <div class="col-sm">
-          <a href="#">How much does it cost?</a><br />
-          <a href="#">Can I ship Tasting Boxes directly to the recipient?</a
-          ><br />
-          <a href="#">Can I buy multiple gifts?</a><br />
-          <a href="#">How does it work for the recipient?</a><br />
-          <a href="#">When will the First Box arrive?</a>
-        </div>
-        <div class="col-sm">
-          <a href="#">What happens when the Gift ends?</a><br />
-          <a href="#">What counties do you ship to?</a><br />
-          <a href="#">How many different spirits are included?</a><br />
-          <a href="#">What recipient info is required from me?</a><br />
-          <a href="#">Will you ask the recipients for billing info?</a>
+        <div class="row">
+          <div class="col-sm">
+            <a href="#">How much does it cost?</a><br />
+            <a href="#">Can I ship Tasting Boxes directly to the recipient?</a
+            ><br />
+            <a href="#">Can I buy multiple gifts?</a><br />
+            <a href="#">How does it work for the recipient?</a><br />
+            <a href="#">When will the First Box arrive?</a>
+          </div>
+          <div class="col-sm">
+            <a href="#">What happens when the Gift ends?</a><br />
+            <a href="#">What counties do you ship to?</a><br />
+            <a href="#">How many different spirits are included?</a><br />
+            <a href="#">What recipient info is required from me?</a><br />
+            <a href="#">Will you ask the recipients for billing info?</a>
+          </div>
+          <img src="assets/picto_seal.svg" class="picto-seal" />
         </div>
       </div>
     </section>
 
     <div class="brands container text-center">
-      <img src="assets/brands_mobile.png" />
+      <img src="assets/brands_mobile.png" class="d-sm-none" />
+      <img src="assets/brands_desktop.png" class="d-none d-sm-block" />
     </div>
 
     <footer class="text-center">

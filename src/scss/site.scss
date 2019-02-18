@@ -1,6 +1,5 @@
 @import "_variables";
 @import "node_modules/bootstrap/scss/bootstrap";
-@import "_mixins";
 @import "_fonts";
 
 body,
@@ -35,6 +34,13 @@ header {
       width: 90px;
       height: 47px;
     }
+    @include media-breakpoint-up(sm) {
+      top: 24.3px;
+      img {
+        width: 120px;
+        height: 61.7px;
+      }
+    }
   }
 
   nav {
@@ -56,11 +62,21 @@ header {
 .steps {
   margin-top: 81px;
   margin-bottom: 64px;
+  @include media-breakpoint-up(sm) {
+    margin-bottom: 80px;
+  }
   h1 {
-    // set font
+    font-family: BrothersRegular;
     color: $color-accent-light;
     font-size: 32px;
-    line-height: 37px;
+    width: 260px;
+    margin: 0 auto;
+    @include media-breakpoint-up(sm) {
+      font-size: 36px;
+      line-height: 1.25;
+      width: 100%;
+      margin-bottom: 8px;
+    }
   }
   .subtitle {
     font-family: Malaga;
@@ -68,7 +84,12 @@ header {
     font-style: italic;
     line-height: 24px;
     font-size: 18px;
+    margin-top: 12px;
     margin-bottom: 32px;
+    @include media-breakpoint-up(sm) {
+      margin-top: 8px;
+      margin-bottom: 16px;
+    }
   }
   .step {
     padding-top: 48px;
@@ -90,13 +111,43 @@ header {
 }
 
 .title-image {
+  position: relative;
   height: 375px;
-  background: url(../../assets/hero_image_personalize_mobile_02.jpg) center
-    center;
+  min-height: 375px;
+  @include media-breakpoint-up(sm) {
+    height: 480px;
+    min-height: 480px;
+  }
+  .parallax {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url(../../assets/hero_image_personalize_mobile_02.jpg);
+    background-attachment: fixed;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    @include media-breakpoint-up(sm) {
+      background-image: url(../../assets/hero_image_personalize_desktop_02.jpg);
+    }
+  }
+  h2 {
+    margin: 0 auto;
+    padding-top: 160px;
+    color: $color-accent-very-light;
+    font-family: BrothersRegular;
+    line-height: 1;
+    font-size: 36px;
+    width: 300px;
+    text-align: center;
+  }
 }
 
 .main {
   padding: 0 29px 64px 26px;
+  position: relative;
 }
 main {
   background: $color-background-alt;
@@ -104,6 +155,10 @@ main {
   margin-top: -75px;
   padding-left: 19px;
   padding-right: 21px;
+  @include media-breakpoint-up(sm) {
+    max-width: 760px;
+    margin: -128px auto 0 auto;
+  }
   h2 {
     font-size: 32px;
     font-weight: bold;
@@ -115,6 +170,9 @@ main {
   }
   .form-part-divider {
     width: 100%;
+    @include media-breakpoint-up(sm) {
+      max-width: 640px;
+    }
   }
 }
 
@@ -125,6 +183,15 @@ main {
 .form-part-title {
   font-style: italic;
   padding: 0 24px 8px 24px;
+  @include media-breakpoint-up(sm) {
+    width: 295px;
+    margin: 0 auto;
+  }
+  &.wider {
+    @include media-breakpoint-up(sm) {
+      width: 300px;
+    }
+  }
 }
 .form-radio {
   .form-option {
@@ -135,6 +202,12 @@ main {
     height: 100px;
     color: $color-accent;
     position: relative;
+    @include media-breakpoint-up(sm) {
+      width: 180px;
+      flex-grow: unset;
+      flex-basis: auto;
+      margin: 16px 10px 0 10px;
+    }
     .label {
       font-family: Nitti;
       max-width: 120px;
@@ -153,6 +226,9 @@ main {
       border-top: 1px solid #eae6e1;
       padding-top: 7px;
       margin-top: 9px;
+      @include media-breakpoint-up(sm) {
+        width: 140px;
+      }
     }
     svg {
       fill: $color-accent-very-light;
@@ -194,9 +270,17 @@ main {
   font-size: 12px;
   line-height: 1.3;
   font-style: italic;
+  @include media-breakpoint-up(sm) {
+    max-width: 515px;
+    margin: 0 auto;
+  }
 }
 .form-fields {
   padding-top: 6px;
+  @include media-breakpoint-up(sm) {
+    max-width: 380px;
+    margin: 0 auto;
+  }
   input,
   textarea,
   select {
@@ -225,6 +309,9 @@ main {
     &::-ms-input-placeholder {
       color: $color-light-grey;
     }
+    &.error {
+      border-color: #d43333;
+    }
   }
   input,
   select {
@@ -250,16 +337,6 @@ main {
     option {
       color: $color-main-light;
     }
-    // &:after {
-    //   content: "";
-    //   width: 8px;
-    //   height: 8px;
-    //   position: absolute;
-    //   top: 0;
-    //   right: 0;
-
-    //   z-index: 1;
-    // }
   }
 }
 .form-personal-message {
@@ -291,12 +368,22 @@ main {
       background: $color-brownish-grey;
       cursor: default;
     }
+    @include media-breakpoint-up(sm) {
+      max-width: 260px;
+      margin: 0 auto;
+    }
+  }
+  @include media-breakpoint-up(sm) {
+    padding-bottom: 80px;
   }
 }
 
 .questions {
   background-color: $color-background-alt;
   padding: 64px 27px;
+  @include media-breakpoint-up(sm) {
+    padding: 85px 27px 88px 27px;
+  }
   h2 {
     font-family: Malaga;
     font-style: italic;
@@ -310,12 +397,33 @@ main {
     font-family: Malaga;
     font-style: italic;
   }
+  .container {
+    max-width: 760px;
+    position: relative;
+  }
+  .col-sm:last-child {
+    @include media-breakpoint-up(lg) {
+      padding-left: 50px;
+    }
+  }
+  .picto-seal {
+    @include media-breakpoint-up(xl) {
+      display: block;
+    }
+    display: none;
+    position: absolute;
+    left: 100%;
+    top: 2px;
+    width: 158.5px;
+    height: 158.5px;
+  }
 }
 
 .brands {
   padding: 110px 18px 110px 17px;
   img {
     width: 100%;
+    max-width: 1100px;
   }
 }
 
@@ -328,6 +436,9 @@ footer {
   line-height: 18px;
   font-family: Nitti;
   letter-spacing: 0;
+  @include media-breakpoint-up(sm) {
+    padding: 20px 0 24px 0;
+  }
   a {
     color: $color-accent;
     text-decoration: underline;

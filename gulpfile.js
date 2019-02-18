@@ -1,5 +1,6 @@
 var gulp = require("gulp");
 var sass = require("gulp-sass");
+var csso = require("gulp-csso");
 
 var browserSync = require("browser-sync").create();
 
@@ -8,13 +9,17 @@ function style() {
     .src("./src/scss/site.scss")
     .pipe(sass())
     .on("error", sass.logError)
+    .pipe(csso())
     .pipe(gulp.dest("./dist/res/css/"))
     .pipe(browserSync.stream());
 }
 
 function reload() {
   browserSync.reload();
-  done();
+}
+
+function build() {
+  style();
 }
 
 function watch() {
@@ -31,4 +36,4 @@ function watch() {
 }
 
 exports.default = watch;
-exports.style = style;
+exports.build = build;

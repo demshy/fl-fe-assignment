@@ -1,4 +1,3 @@
-console.log("#init");
 var giftForm = new Vue({
   el: "#gift-form",
   data: function() {
@@ -15,7 +14,7 @@ var giftForm = new Vue({
         },
         customer_name: {
           value: "",
-          conditions: { required: true }
+          conditions: {}
         },
         recipient_email: {
           value: "",
@@ -51,11 +50,11 @@ var giftForm = new Vue({
         },
         personal_message_name: {
           value: "",
-          conditions: {}
+          conditions: { allowEmpty: true }
         },
         personal_message_content: {
           value: "",
-          conditions: {}
+          conditions: { allowEmpty: true }
         }
       }
     };
@@ -63,15 +62,66 @@ var giftForm = new Vue({
   methods: {
     onSubmit() {
       if (this.formValid()) {
-        console.log("form valud");
+        var output = {
+          duration: this.values.duration,
+          card_type: this.values.cardType,
+          recipient: this.values.recipient,
+          personal_message_name: this.form.personal_message_name.value,
+          personal_message_content: this.form.personal_message_content.value
+        };
+
+        for (var f in this.form) {
+          if (this.isRequired(this.form[f])) {
+            output[f] = this.form[f].value;
+          }
+        }
+
+        console.log(output);
       }
-      for (var field in this.values) {
-        console.log(field);
-      }
-      console.log(this.values);
     },
     formValid() {
-      return false;
+      for (var f in this.form) {
+        if (this.isRequired(this.form[f]) && this.form[f].value == "") {
+          return false;
+        }
+      }
+      return true;
+    },
+    isRequired(field) {
+      if (field.conditions.allowEmpty !== undefined) {
+        return false;
+      }
+      if (
+        field.conditions.cardType !== undefined &&
+        field.conditions.recipient !== undefined
+      ) {
+        return (
+          this.values.cardType == field.conditions.cardType &&
+          this.values.recipient == field.conditions.recipient
+        );
+      }
+      if (field.conditions.cardType !== undefined) {
+        return this.values.cardType == field.conditions.cardType;
+      }
+      if (field.conditions.recipient !== undefined) {
+        return this.values.recipient == field.conditions.recipient;
+      }
+
+      return true;
+    },
+
+    fieldTouched(field) {
+      this.form[field].touched = true;
+      giftForm.$forceUpdate();
+    },
+
+    highlightInvalidField(fieldName) {
+      var field = this.form[fieldName];
+      return (
+        field.value == "" &&
+        this.isRequired(field) &&
+        field.touched !== undefined
+      );
     }
   }
 });
